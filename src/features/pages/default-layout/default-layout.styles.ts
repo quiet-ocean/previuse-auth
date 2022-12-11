@@ -1,7 +1,7 @@
 import styled, { AnyStyledComponent } from 'styled-components';
 
 export const StyledContainer: AnyStyledComponent = styled.div`
-  height: calc(100% - 80px);
+  height: calc(100% - 90px);
   background: ${({ theme }) => theme.colors.lightBackgroundColor};
   display: flex;
   width: 100%;

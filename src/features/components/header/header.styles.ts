@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
+import { NavLink } from 'react-router-dom';
 
 export const StyledHeader = styled(AppBar)`
   justify-content: center;
@@ -8,10 +9,9 @@ export const StyledHeader = styled(AppBar)`
     background-color: ${({ theme }) => theme.colors.lightBackgroundColor};
   }
 
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.primaryBorder}`};
+  border-bottom: 1px solid #efefef;
 
-  line-height: 60px;
-  height: 80px !important;
+  height: 90px !important;
   box-shadow: none !important;
   color: red !important;
 `;
@@ -23,8 +23,6 @@ export const StyledWrapper = styled.div`
   flex-grow: 1;
 `;
 
-export const StyledButtons = styled.div`
-  width: 200px;
+export const StyledLogo = styled(NavLink)`
   display: flex;
-  justify-content: space-between;
 `;

@@ -1,30 +1,44 @@
 import React from 'react';
 import { Route, RouteChildrenProps } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { Tab, Tabs } from '@material-ui/core';
+import { TabContext } from '@material-ui/lab';
+
 import { ROUTES } from '../../../common/constants';
+import LoginFormComponent from '../../components/login-form/login-form.component';
+import SignupFormComponent from '../../components/signup-form/signup-form.component';
+import ChangePasswordComponent from '../../components/change-password/change-password.component';
 
-const login: React.FC<RouteChildrenProps> = () => {
+import {
+  StyledContainer,
+  StyledWrapper,
+  StyledLink
+} from './home.styles';
+
+const HomePage: React.FC<RouteChildrenProps> = () => {
   return (
-    <div>
-      <div>
-        <Route exact path={ROUTES.home}>
-          landing page
-        </Route>
+    <StyledContainer>
+      <StyledWrapper>
+        <TabContext value='0'>
+          <Tabs value={false}>
+            <Tab to={ROUTES.signup} component={StyledLink as any} label="Sign Up" value="1" />
+            <Tab to={ROUTES.login} component={StyledLink as any} label="Log In" value="2" />
+          </Tabs>
+        </TabContext>
 
-        <Route exact path={ROUTES.signin}>
-          <NavLink to={ROUTES.changePassword}>change password</NavLink>
+        <Route exact path={ROUTES.login}>
+          <LoginFormComponent />
         </Route>
 
         <Route exact path={ROUTES.signup}>
-          sign up
+          <SignupFormComponent />
         </Route>
 
         <Route exact path={ROUTES.changePassword}>
-          change password form
+          <ChangePasswordComponent />
         </Route>
-      </div>
-    </div>
+      </StyledWrapper>
+    </StyledContainer>
   );
 };
 
-export default login;
+export default HomePage;

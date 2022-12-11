@@ -10,7 +10,7 @@ import { ROUTES } from './constants';
 import myTheme from '../assets/themes/theme.default';
 import { ServicesContext } from '../common/contexts';
 
-import login from '../features/pages/home/home.page';
+import HomePage from '../features/pages/home/home.page';
 
 import DefaultLayout from '../features/pages/default-layout/default-layout.page';
 import App from '../features/pages/app/app.page';
@@ -35,7 +35,7 @@ const Root: React.FC<RootProps> = ({ store, services }) => {
                 <Switch>
                   <DefaultLayout
                     path={ROUTES.home}
-                    component={ login }
+                    component={HomePage}
                   />
 
                   {/* Keep at bottom */}

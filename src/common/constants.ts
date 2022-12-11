@@ -6,7 +6,7 @@ export const SUCCESS_SUFFIX = '_SUCCESS';
 
 export const ROUTES: StringMap = {
   home: '/',
-  signin: '/signin',
+  login: '/login',
   signup: '/signup',
   changePassword: '/change-password',
 };

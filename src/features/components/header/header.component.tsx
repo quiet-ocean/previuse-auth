@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
-import { NavLink } from 'react-router-dom';
+import logo from '../../../assets/images/logo.png';
 
 import {
   StyledHeader,
   StyledWrapper,
-  StyledButtons
+  StyledLogo
 } from './header.styles';
 
-import ButtonComponent from '../button/button.component';
 import { ROUTES } from '../../../common/constants';
 
 export interface HeaderProps {
@@ -20,13 +19,7 @@ const HeaderComponent: FC<HeaderProps> = (props) => {
     <StyledHeader position="static">
       <Toolbar>
         <StyledWrapper>
-          <NavLink to={ROUTES.home}>logo</NavLink>
-
-          <StyledButtons>
-            <ButtonComponent text={<NavLink to={ROUTES.signin}>signin</NavLink>} />
-            <ButtonComponent text={<NavLink to={ROUTES.signup}>signup</NavLink>} />
-          </StyledButtons>
-
+          <StyledLogo to={ROUTES.login}><img src={logo} /></StyledLogo>
         </StyledWrapper>
       </Toolbar>
     </StyledHeader>
