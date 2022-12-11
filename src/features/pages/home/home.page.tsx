@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, RouteChildrenProps } from 'react-router';
+import { Redirect, Route, RouteChildrenProps, Switch } from 'react-router';
 import { Tab, Tabs } from '@material-ui/core';
 import { TabContext } from '@material-ui/lab';
 
@@ -25,17 +25,23 @@ const HomePage: React.FC<RouteChildrenProps> = () => {
           </Tabs>
         </TabContext>
 
-        <Route exact path={ROUTES.login}>
-          <LoginFormComponent />
-        </Route>
+        <Switch>
+          <Route exact path={ROUTES.login}>
+            <LoginFormComponent />
+          </Route>
 
-        <Route exact path={ROUTES.signup}>
-          <SignupFormComponent />
-        </Route>
+          <Route exact path={ROUTES.signup}>
+            <SignupFormComponent />
+          </Route>
 
-        <Route exact path={ROUTES.changePassword}>
-          <ChangePasswordComponent />
-        </Route>
+          <Route exact path={ROUTES.changePassword}>
+            <ChangePasswordComponent />
+          </Route>
+
+          <Route path='*'>
+            <Redirect to={ROUTES.login} />
+          </Route>
+        </Switch>
       </StyledWrapper>
     </StyledContainer>
   );

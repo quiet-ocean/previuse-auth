@@ -8,7 +8,10 @@ export interface SignupFormComponentProps {
 const SignupFormComponent: React.FC<SignupFormComponentProps> = (props) => {
   return (
     <StyledContainer>
-      <input type="text" />
+      <form>
+        <input name='email' type="text" placeholder='Sign Up With email' />
+        <input name='password' type="password" placeholder='Enter Password' />
+      </form>
     </StyledContainer>
   );
 }

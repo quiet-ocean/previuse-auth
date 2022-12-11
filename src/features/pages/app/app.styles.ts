@@ -14,4 +14,25 @@ export const GlobalStyle = createGlobalStyle`
   #root {
     height: 100%;
   }
+
+  form {
+    min-height: 112px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    input {
+      border: solid 1px #4723cd;
+      height: 49px;
+      width: 100%;
+      border-radius: 10px;
+      padding: 0 12px;
+  
+      &::placeholder {
+        text-align: center;
+        color: #bdbdbd;
+        font-size: 16px;
+      }
+    }
+  }
 `
