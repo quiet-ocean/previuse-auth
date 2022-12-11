@@ -9,6 +9,7 @@ import {
 } from './header.styles';
 
 import ButtonComponent from '../button/button.component';
+import { ROUTES } from '../../../common/constants';
 
 export interface HeaderProps {
   title?: string;
@@ -19,11 +20,11 @@ const HeaderComponent: FC<HeaderProps> = (props) => {
     <StyledHeader position="static">
       <Toolbar>
         <StyledWrapper>
-          <div>logo</div>
+          <NavLink to={ROUTES.home}>logo</NavLink>
 
           <StyledButtons>
-            <ButtonComponent text={<NavLink to={`/signin`}>signin</NavLink>} />
-            <ButtonComponent text={<NavLink to={`/signup`}>signup</NavLink>} />
+            <ButtonComponent text={<NavLink to={ROUTES.signin}>signin</NavLink>} />
+            <ButtonComponent text={<NavLink to={ROUTES.signup}>signup</NavLink>} />
           </StyledButtons>
 
         </StyledWrapper>
