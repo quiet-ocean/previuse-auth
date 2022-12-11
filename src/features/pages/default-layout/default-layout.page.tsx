@@ -95,20 +95,9 @@ const DefaultLayout: React.FC<AppProps & DispatchProps> = ({ ...props }) => {
         path={props.path}
         render={(matchProps: RouteChildrenProps) => (
           <div dir={direction}>
-            <HeaderComponent
-              userActions={[{
-                label: 'Settings',
-                onItemClick: () => { /** */ }
-              }, {
-                label: 'Logout',
-                onItemClick: () => { /** */ }
-              }]}
-              title={t(title)}
-            />
+            <HeaderComponent title={t(title)} />
             <StyledContainer>
               {props.loading && <SpinnerComponent />}
-
-              {/* <DrawerComponent /> */}
 
               <StyledContent><Component {...matchProps} /></StyledContent>
 

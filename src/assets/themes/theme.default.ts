@@ -17,7 +17,7 @@ const theme: DefaultTheme = {
     secondaryBackgroundColor: '#ce1026',
     lighterBackgroundColor: 'rgb(248, 249, 253)',
     tertiaryBackgroundColor: '#dceaff',
-    lightBackgroundColor: '#f9f9f9',
+    lightBackgroundColor: '#fffcfc',
     updatedValue: '#00bf0a',
     backdropBackgroundColor: 'rgba(187, 204, 221, 0.6)',
     primaryTextColor: '#333333',
