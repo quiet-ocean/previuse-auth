@@ -25,7 +25,7 @@ class HttpService {
 
       if (isJson) {
         return res.json().then(data => {
-          throw new Error(data.message || data.status);
+          throw data;
         });
       }
       return res.text().then(data => {

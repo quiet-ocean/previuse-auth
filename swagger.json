@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "Snippets API",
-    "description": "Test description",
+    "description": "previuse",
     "termsOfService": "https://www.google.com/policies/terms/",
     "contact": {
       "email": "contact@snippets.local"
     },
     "license": {
-      "name": "BSD License"
+      "name": "MIT License"
     },
     "version": "v1"
   },
@@ -204,7 +204,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User Creation"
+                "$ref": "#/definitions/UserCreation"
               }
             }
           }
@@ -222,7 +222,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User Creation"
+              "$ref": "#/definitions/UserCreation"
             }
           }
         ],
@@ -230,7 +230,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/User Creation"
+              "$ref": "#/definitions/UserCreation"
             }
           }
         },
@@ -247,7 +247,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User Creation"
+              "$ref": "#/definitions/UserCreation"
             }
           }
         ],
@@ -255,7 +255,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/User Creation"
+              "$ref": "#/definitions/UserCreation"
             }
           }
         },
@@ -297,6 +297,62 @@
             "description": "",
             "schema": {
               "$ref": "#/definitions/SendEmailReset"
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/users/reset_email/": {
+      "post": {
+        "operationId": "auth_users_reset_username",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendEmailReset"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/SendEmailReset"
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/users/reset_email_confirm/": {
+      "post": {
+        "operationId": "auth_users_reset_username_confirm",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UsernameResetConfirm"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UsernameResetConfirm"
             }
           }
         },
@@ -362,9 +418,9 @@
       },
       "parameters": []
     },
-    "/auth/users/reset_username/": {
+    "/auth/users/set_email/": {
       "post": {
-        "operationId": "auth_users_reset_username",
+        "operationId": "auth_users_set_username",
         "description": "",
         "parameters": [
           {
@@ -372,7 +428,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SendEmailReset"
+              "$ref": "#/definitions/SetUsername"
             }
           }
         ],
@@ -380,35 +436,7 @@
           "201": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/SendEmailReset"
-            }
-          }
-        },
-        "tags": [
-          "auth"
-        ]
-      },
-      "parameters": []
-    },
-    "/auth/users/reset_username_confirm/": {
-      "post": {
-        "operationId": "auth_users_reset_username_confirm",
-        "description": "",
-        "parameters": [
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UsernameResetConfirm"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/UsernameResetConfirm"
+              "$ref": "#/definitions/SetUsername"
             }
           }
         },
@@ -437,34 +465,6 @@
             "description": "",
             "schema": {
               "$ref": "#/definitions/SetPassword"
-            }
-          }
-        },
-        "tags": [
-          "auth"
-        ]
-      },
-      "parameters": []
-    },
-    "/auth/users/set_username/": {
-      "post": {
-        "operationId": "auth_users_set_username",
-        "description": "",
-        "parameters": [
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SetUsername"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/SetUsername"
             }
           }
         },
@@ -829,13 +829,13 @@
   "definitions": {
     "TokenObtainPair": {
       "required": [
-        "username",
+        "email",
         "password"
       ],
       "type": "object",
       "properties": {
-        "username": {
-          "title": "Username",
+        "email": {
+          "title": "Email",
           "type": "string",
           "minLength": 1
         },
@@ -880,21 +880,15 @@
     "User": {
       "type": "object",
       "properties": {
-        "email": {
-          "title": "Email address",
-          "type": "string",
-          "format": "email",
-          "maxLength": 254
-        },
         "id": {
           "title": "ID",
           "type": "integer",
           "readOnly": true
         },
-        "username": {
-          "title": "Username",
-          "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+        "email": {
+          "title": "Email",
           "type": "string",
+          "format": "email",
           "readOnly": true,
           "minLength": 1
         }
@@ -902,23 +896,16 @@
     },
     "UserCreate": {
       "required": [
-        "username",
+        "email",
         "password"
       ],
       "type": "object",
       "properties": {
         "email": {
-          "title": "Email address",
+          "title": "Email",
           "type": "string",
           "format": "email",
-          "maxLength": 254
-        },
-        "username": {
-          "title": "Username",
-          "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-          "type": "string",
-          "pattern": "^[\\w.@+-]+$",
-          "maxLength": 150,
+          "maxLength": 255,
           "minLength": 1
         },
         "id": {
@@ -952,8 +939,9 @@
         }
       }
     },
-    "User Creation": {
+    "UserCreation": {
       "required": [
+        "email",
         "password"
       ],
       "type": "object",
@@ -964,20 +952,25 @@
           "readOnly": true
         },
         "email": {
-          "title": "Email address",
+          "title": "Email",
           "type": "string",
           "format": "email",
-          "maxLength": 254
+          "maxLength": 255,
+          "minLength": 1
         },
         "first_name": {
           "title": "First name",
           "type": "string",
-          "maxLength": 150
+          "maxLength": 256,
+          "minLength": 1,
+          "x-nullable": true
         },
         "last_name": {
           "title": "Last name",
           "type": "string",
-          "maxLength": 150
+          "maxLength": 256,
+          "minLength": 1,
+          "x-nullable": true
         },
         "password": {
           "title": "Password",
@@ -996,6 +989,21 @@
           "title": "Email",
           "type": "string",
           "format": "email",
+          "minLength": 1
+        }
+      }
+    },
+    "UsernameResetConfirm": {
+      "required": [
+        "new_email"
+      ],
+      "type": "object",
+      "properties": {
+        "new_email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 255,
           "minLength": 1
         }
       }
@@ -1025,18 +1033,23 @@
         }
       }
     },
-    "UsernameResetConfirm": {
+    "SetUsername": {
       "required": [
-        "new_username"
+        "current_password",
+        "new_email"
       ],
       "type": "object",
       "properties": {
-        "new_username": {
-          "title": "Username",
-          "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+        "current_password": {
+          "title": "Current password",
           "type": "string",
-          "pattern": "^[\\w.@+-]+$",
-          "maxLength": 150,
+          "minLength": 1
+        },
+        "new_email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 255,
           "minLength": 1
         }
       }
@@ -1060,28 +1073,6 @@
         }
       }
     },
-    "SetUsername": {
-      "required": [
-        "current_password",
-        "new_username"
-      ],
-      "type": "object",
-      "properties": {
-        "current_password": {
-          "title": "Current password",
-          "type": "string",
-          "minLength": 1
-        },
-        "new_username": {
-          "title": "Username",
-          "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-          "type": "string",
-          "pattern": "^[\\w.@+-]+$",
-          "maxLength": 150,
-          "minLength": 1
-        }
-      }
-    },
     "ProjectPermittion": {
       "required": [
         "project_user_permittion",
@@ -1099,10 +1090,10 @@
           "title": "Project user permittion",
           "type": "integer",
           "enum": [
-            1,
-            2,
-            3,
-            4
+            "owner",
+            "edit",
+            "comment",
+            "view"
           ]
         },
         "project_name": {

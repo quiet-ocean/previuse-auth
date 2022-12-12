@@ -2,10 +2,17 @@ import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   form {
-    input {
+    input:-webkit-autofill { 
+      -webkit-background-clip: text;
+    }
+
+    .MuiTextField-root.error .MuiInputBase-root{
+      border: ${({ theme }) => `solid 2px ${theme.colors.errorColor}`};
+    }
+
+    .MuiInputBase-root {
       border: ${({ theme }) => `solid 1px ${theme.colors.primaryBackground}`};
       height: 49px;
-      width: calc(100% - 26px);
       border-radius: 10px;
       padding: 0 12px;
       margin-bottom: 12px;
@@ -15,6 +22,15 @@ const StyledContainer = styled.div`
         color: #bdbdbd;
         font-size: 16px;
       }
+    }
+
+    svg.error-icon {
+      color: ${({ theme }) => theme.colors.primaryBackgroundColor};
+      cursor: pointer;
+    }
+
+    .input-icon svg {
+      color: #bdbdbd;
     }
 
     button[type=submit] {
@@ -31,7 +47,7 @@ const StyledContainer = styled.div`
 
       svg {
         position: absolute;
-        left: 24px;
+        left: 27px;
         font-size: 16px;
       }
     }

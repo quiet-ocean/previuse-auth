@@ -4,10 +4,11 @@ import { bindActionCreators, AnyAction, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs } from '@material-ui/core';
 import { TabContext } from '@material-ui/lab';
+import { ArrowForward } from '@material-ui/icons';
+import { FieldValues } from 'react-hook-form';
 
 import { ROUTES } from '../../../common/constants';
 import LoginFormComponent from '../../components/login-form/login-form.component';
-import SignupFormComponent from '../../components/signup-form/signup-form.component';
 
 import {
   StyledContainer,
@@ -24,7 +25,6 @@ import { LoginAction, SignUpAction } from '../../../common/state/auth/auth.actio
 import { IServices } from '../../../common/services/initiate';
 import { ServicesContext } from '../../../common/contexts';
 import ExpressLoginComponent from '../../components/express-login/express-login.component';
-import { ArrowForward } from '@material-ui/icons';
 
 interface HomePageProps {
   login: (args: TokenObtainPair) => Promise<TokenRefresh>;
@@ -49,14 +49,15 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     }
   }
 
-  const onSignUp = async (args: TokenObtainPair) => {
+  const onSignUp = async (args: FieldValues) => {
     services.loading.actions.start();
 
     try {
-      await props.signup(args);
+      await props.signup(args as TokenObtainPair);
       services.snackbar.actions.open({ content: 'Signed up successfuly' })
-    } catch {
-      services.snackbar.actions.open({ content: 'Signup failed', type: 'error' })
+    } catch (e) {
+      services.snackbar.actions.open({ content: 'Signup failed', type: 'error' });
+      throw e;
     } finally {
       services.loading.actions.stop();
     }
@@ -77,11 +78,11 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
         <Switch>
           <Route exact path={ROUTES.login}>
-            <LoginFormComponent onSubmit={onLogin} />
+            <LoginFormComponent onSubmit={onLogin} submitText="Log In" key={1} />
           </Route>
 
           <Route exact path={ROUTES.signup}>
-            <SignupFormComponent onSubmit={onSignUp} />
+            <LoginFormComponent onSubmit={onSignUp} submitText="Log In" key={2}/>
           </Route>
 
           <Route path='*'>
@@ -93,10 +94,10 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
           <div>
             <div>
               <span>By signing up you agree to our</span>
-              <a>Terms Of Services</a>
+              <a href='/'>Terms Of Services</a>
               <span>and</span>
             </div>
-            <a>Privacy Policy</a>
+            <a href='/'>Privacy Policy</a>
           </div>
         </StyledDisclaimer>
 

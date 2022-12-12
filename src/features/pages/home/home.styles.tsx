@@ -33,6 +33,7 @@ export const StyledTicketButton = styled(Button)`
   height: 49px;
   
   && {
+    border-radius: 10px;
     text-transform: capitalize;
     background-color: #4723cd;
     color: #fff;
@@ -77,6 +78,7 @@ export const StyledDisclaimer = styled.div`
   a {
     font-weight: bold;
     padding: 0 3px;
+    color: #828282;
 
     &:hover {
       cursor: pointer;
