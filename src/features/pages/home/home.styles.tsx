@@ -24,7 +24,7 @@ export const StyledContainer = styled.div`
 
 export const StyledWrapper = styled.div`
   width: 528px;
-  height: 50%;
+  height: 80%;
 `;
 
 export const StyledLink = styled(NavLink)`

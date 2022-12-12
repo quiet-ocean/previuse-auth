@@ -22,7 +22,7 @@ export const StyledText = styled.div`
 export const StyledIcon = styled.div`  
   margin: -16px 0 -16px -16px;
   width: 57px;
-  height: 57px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;

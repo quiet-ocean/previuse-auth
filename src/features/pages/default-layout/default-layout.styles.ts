@@ -5,6 +5,8 @@ export const StyledContainer: AnyStyledComponent = styled.div`
   background: ${({ theme }) => theme.colors.lightBackgroundColor};
   display: flex;
   width: 100%;
+  background-image: url(background.png);
+  background-size: cover;
 
   && {
     margin: 0;

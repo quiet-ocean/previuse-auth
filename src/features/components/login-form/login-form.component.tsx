@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import { GetApp } from '@material-ui/icons';
 import StyledContainer from './login-form.styles';
 import { TokenObtainPair } from '../../../swagger2Ts/interfaces';
+import FormComponent from '../form/form.component';
 
 export interface LoginFormComponentProps {
   onSubmit: (args: TokenObtainPair) => void;
@@ -17,15 +18,17 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
 
   return (
     <StyledContainer>
-      <form onSubmit={onSubmit}>
-        <input autoFocus required name="username" type="text" placeholder='Sign In With email' />
-        <input required name="password" type="password" placeholder='Enter Password' />
+      <FormComponent>
+        <form onSubmit={onSubmit}>
+          <input autoFocus required name="username" type="text" placeholder='Sign In With email' />
+          <input required name="password" type="password" placeholder='Enter Password' />
 
-        <Button type='submit'>
-          <GetApp />
-          <span>Log In</span>
-        </Button>
-      </form>
+          <Button type='submit'>
+            <GetApp />
+            <span>Log In</span>
+          </Button>
+        </form>
+      </FormComponent>
     </StyledContainer>
   );
 }
