@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   form {
+    input:-webkit-autofill { 
+      -webkit-background-clip: text;
+    }
+
+    .MuiTextField-root.error .MuiInputBase-root{
+      border: ${({ theme }) => `solid 2px ${theme.colors.errorColor}`};
+    }
+
     .MuiInputBase-root {
       border: ${({ theme }) => `solid 1px ${theme.colors.primaryBackground}`};
       height: 49px;
@@ -16,7 +24,7 @@ const StyledContainer = styled.div`
       }
     }
 
-    svg {
+    svg.error-icon {
       color: ${({ theme }) => theme.colors.primaryBackgroundColor};
       cursor: pointer;
     }
