@@ -11,11 +11,11 @@ export enum AuthActionTypes {
 export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
   AuthActionTypes.LOGIN,
   (args) => HttpService.fetch({ ...EndPoints.auth_jwt_create_create, body: JSON.stringify(args) }),
-  false  
+  false
 );
 
 export const SignUpAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
   AuthActionTypes.SIGNUP,
-  (args) => HttpService.fetch({ ...EndPoints.auth_jwt_create_create, body: JSON.stringify(args) }),
-  false  
+  (args) => HttpService.fetch({ ...EndPoints.auth_users_create, body: JSON.stringify(args) }),
+  false
 );
