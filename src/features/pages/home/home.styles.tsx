@@ -33,6 +33,7 @@ export const StyledTicketButton = styled(Button)`
   height: 49px;
   
   && {
+    border-radius: 10px;
     text-transform: capitalize;
     background-color: #4723cd;
     color: #fff;

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, InputAdornment, TextField, Tooltip } from '@material-ui/core';
-import { Email, GetApp, WarningRounded } from '@material-ui/icons';
+import { Visibility, Email, GetApp, WarningRounded, VisibilityOff } from '@material-ui/icons';
 import StyledContainer from './login-form.styles';
 import { TokenObtainPair } from '../../../swagger2Ts/interfaces';
 import FormComponent from '../form/form.component';
 import { FieldValues, useForm } from 'react-hook-form';
+import ButtonComponent from '../button/button.component';
 
 export interface LoginFormComponentProps {
   onSubmit: (args: TokenObtainPair) => void;
@@ -12,6 +13,8 @@ export interface LoginFormComponentProps {
 }
 
 const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -42,6 +45,8 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
     return '';
   }
 
+  const onTogglePassword = () => setShowPassword(!showPassword);
+
   return (
     <StyledContainer>
       <FormComponent>
@@ -63,8 +68,8 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
                 </InputAdornment>
               ),
               startAdornment: (
-                <InputAdornment position='start'>
-                  <Email />
+                <InputAdornment position='start' className='input-icon'>
+                  <ButtonComponent type='icon' iconElement={<Email />} />
                 </InputAdornment>
               )
             }}
@@ -74,7 +79,7 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
             {...register('password')}
             required
             name='password'
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder='Enter Password'
             className={errors.password ? 'error' : undefined}
             fullWidth
@@ -85,6 +90,15 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
                   <Tooltip title={getErrorField('password')}><WarningRounded /></Tooltip>
                 </InputAdornment>
               ),
+              startAdornment: (
+                <InputAdornment position='start' className='input-icon'>
+                  <ButtonComponent
+                    type='icon'
+                    iconElement={showPassword ? <VisibilityOff /> : <Visibility />}
+                    onClick={onTogglePassword}
+                  />
+                </InputAdornment>
+              )
             }}
           />
 

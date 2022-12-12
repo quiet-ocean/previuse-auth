@@ -29,6 +29,10 @@ const StyledContainer = styled.div`
       cursor: pointer;
     }
 
+    .input-icon svg {
+      color: #bdbdbd;
+    }
+
     button[type=submit] {
       background-color: ${({ theme }) => theme.colors.primaryBackground};
       color: #fff;
@@ -43,7 +47,7 @@ const StyledContainer = styled.div`
 
       svg {
         position: absolute;
-        left: 24px;
+        left: 27px;
         font-size: 16px;
       }
     }
