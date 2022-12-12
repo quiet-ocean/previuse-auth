@@ -12,7 +12,10 @@ import SignupFormComponent from '../../components/signup-form/signup-form.compon
 import {
   StyledContainer,
   StyledWrapper,
-  StyledLink
+  StyledLink,
+  StyledDisclaimer,
+  StyledAssistance,
+  StyledTicketButton
 } from './home.styles';
 
 import { TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
@@ -21,6 +24,7 @@ import { LoginAction } from '../../../common/state/auth/auth.actions';
 import { IServices } from '../../../common/services/initiate';
 import { ServicesContext } from '../../../common/contexts';
 import ExpressLoginComponent from '../../components/express-login/express-login.component';
+import { ArrowForward } from '@material-ui/icons';
 
 interface HomePageProps {
   login: (args: TokenObtainPair) => Promise<TokenRefresh>;
@@ -76,6 +80,25 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
             <Redirect to={ROUTES.login} />
           </Route>
         </Switch>
+
+        <StyledDisclaimer>
+          <div>
+            <span>By signing up you agree to our</span>
+            <a>Terms Of Services</a>
+            <span>and</span>
+            <a>Privacy Policy</a>
+          </div>
+        </StyledDisclaimer>
+
+        <StyledAssistance>
+          <div className='title'>Need Assistance ?</div>
+          <div className='subtitle'>Drop Us A Support Ticket And we will assist you Shortly.</div>
+
+          <StyledTicketButton>
+            <span>Drop A Ticket</span>
+            <ArrowForward />
+          </StyledTicketButton>
+        </StyledAssistance>
       </StyledWrapper>
     </StyledContainer>
   );

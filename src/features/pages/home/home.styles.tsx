@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
+import { Button } from "@material-ui/core";
 
 const cornerSize = '40px';
 
@@ -24,7 +25,64 @@ export const StyledContainer = styled.div`
 
 export const StyledWrapper = styled.div`
   width: 528px;
-  height: 80%;
+  height: 88%;
+`;
+
+export const StyledTicketButton = styled(Button)`
+  width: 179px;
+  height: 49px;
+  
+  && {
+    text-transform: capitalize;
+    background-color: #4723cd;
+    color: #fff;
+    margin-top: 33px;
+    
+    &:hover {
+      background-color: #4723cd;
+    }
+  }
+
+  svg {
+    font-size: 16px;
+    padding-left: 8px;
+  }
+`;
+
+export const StyledAssistance = styled.div`
+  text-align: center;
+  padding-top: 64px;
+
+  .title {
+    color: #4723cd;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    color: #000;
+    font-size: 18px;
+    padding-top: 18px;
+  }
+`;
+
+export const StyledDisclaimer = styled.div`
+  color: #828282;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 23px;
+  display: flex;
+  justify-content: center;
+
+  a {
+    font-weight: bold;
+    padding: 0 3px;
+  }
+
+  > div {
+    width: 384px;
+    line-height: 22px;
+  }
 `;
 
 export const StyledLink = styled(NavLink)`
