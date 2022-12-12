@@ -41,9 +41,9 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
     try {
       await props.login(args);
-      services.snackbar.actions.open({ content: 'Logged in successfuly' })
+      services.snackbar.actions.open({ content: 'Logged in successfuly' });
     } catch {
-      services.snackbar.actions.open({ content: 'Login failed', type: 'error' })
+      services.snackbar.actions.open({ content: 'Login failed', type: 'error' });
     } finally {
       services.loading.actions.stop();
     }
@@ -54,7 +54,7 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
     try {
       await props.signup(args as TokenObtainPair);
-      services.snackbar.actions.open({ content: 'Signed up successfuly' })
+      services.snackbar.actions.open({ content: 'Signed up successfuly' });
     } catch (e) {
       services.snackbar.actions.open({ content: 'Signup failed', type: 'error' });
       throw e;

@@ -26,8 +26,8 @@ const ActivateUserPage: React.FC<VerifyUserPageProps> = (props) => {
       try {
         await props.activateUser({ uid, token });
         services.snackbar.actions.open({ content: 'User Activated Successfuly' });
-      } catch {
-        services.snackbar.actions.open({ content: 'Error Activating user', type: 'error' });
+      } catch (e: any) {
+        services.snackbar.actions.open({ content: e.detail, type: 'error' });
       } finally {
         services.loading.actions.stop();
       }
@@ -39,7 +39,7 @@ const ActivateUserPage: React.FC<VerifyUserPageProps> = (props) => {
   }, [])
 
   return (
-    <StyledContainer>activate</StyledContainer>
+    <StyledContainer>activation</StyledContainer>
   );
 }
 
