@@ -1,6 +1,13 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import { GetApp } from '@material-ui/icons';
+
+import {
+  Button,
+  InputAdornment,
+  TextField,
+  Tooltip
+} from '@material-ui/core';
+
+import { GetApp, WarningRounded } from '@material-ui/icons';
 import StyledContainer from './signup-form.styles';
 import { TokenObtainPair } from '../../../swagger2Ts/interfaces';
 import FormComponent from '../form/form.component';
@@ -26,18 +33,16 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props) => {
     }
   }
 
-
   const getErrorField = (fieldName: string) => {
     const error: any = errors[fieldName];
 
     if (error) {
-      const errorFields = Object.keys(error).map((index) => {
+      return Object.keys(error).map((index) => {
         if (index !== 'ref') {
           return <div key={index}>{error[index]}</div>
         }
         return undefined;
       });
-      return <div>{errorFields}</div>;
     }
 
     return '';
@@ -48,12 +53,43 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props) => {
       <FormComponent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <input {...register('email')} autoFocus required name='email' type="email" placeholder='Sign Up With email' />
-            {getErrorField('email')}
+            <TextField
+              {...register('email')}
+              autoFocus
+              required
+              name='email'
+              type="email"
+              placeholder='Sign Up With email'
+              fullWidth
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: errors.email && (
+                  <InputAdornment position="end">
+                    <Tooltip title={getErrorField('email')}><WarningRounded /></Tooltip>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            {}
           </div>
           <div>
-            <input {...register('password')} required name='password' type="password" placeholder='Enter Password' />
-            {getErrorField('password')}
+            <TextField
+              {...register('password')}
+              required
+              name='password'
+              type="password"
+              placeholder='Enter Password'
+              fullWidth
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: errors.password && (
+                  <InputAdornment position="end">
+                    <Tooltip title={getErrorField('password')}><WarningRounded /></Tooltip>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </div>
 
           <Button type='submit'>

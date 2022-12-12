@@ -20,7 +20,7 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
     <StyledContainer>
       <FormComponent>
         <form onSubmit={onSubmit}>
-          <input autoFocus required name="username" type="text" placeholder='Sign In With email' />
+          <input autoFocus required name="username" type="email" placeholder='Sign In With email' />
           <input required name="password" type="password" placeholder='Enter Password' />
 
           <Button type='submit'>

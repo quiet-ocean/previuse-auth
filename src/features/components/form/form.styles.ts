@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   form {
-    input {
+    .MuiInputBase-root {
       border: ${({ theme }) => `solid 1px ${theme.colors.primaryBackground}`};
       height: 49px;
-      width: calc(100% - 26px);
       border-radius: 10px;
       padding: 0 12px;
       margin-bottom: 12px;
@@ -15,6 +14,11 @@ const StyledContainer = styled.div`
         color: #bdbdbd;
         font-size: 16px;
       }
+    }
+
+    svg {
+      color: ${({ theme }) => theme.colors.primaryBackgroundColor};
+      cursor: pointer;
     }
 
     button[type=submit] {
