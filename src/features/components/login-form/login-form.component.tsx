@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Button, InputAdornment, TextField, Tooltip } from '@material-ui/core';
 import { Visibility, Email, GetApp, WarningRounded, VisibilityOff } from '@material-ui/icons';
+import { FieldValues, useForm } from 'react-hook-form';
+
 import StyledContainer from './login-form.styles';
 import { TokenObtainPair } from '../../../swagger2Ts/interfaces';
 import FormComponent from '../form/form.component';
-import { FieldValues, useForm } from 'react-hook-form';
 import ButtonComponent from '../button/button.component';
+import { getErrorField } from '../../../utils/general-utils';
 
 export interface LoginFormComponentProps {
   onSubmit: (args: TokenObtainPair) => void;
@@ -30,21 +32,6 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
     }
   }
 
-  const getErrorField = (fieldName: string) => {
-    const error: any = errors[fieldName];
-
-    if (error) {
-      return Object.keys(error).map((index) => {
-        if (index !== 'ref') {
-          return <div key={index}>{error[index]}</div>
-        }
-        return undefined;
-      });
-    }
-
-    return '';
-  }
-
   const onTogglePassword = () => setShowPassword(!showPassword);
 
   return (
@@ -64,7 +51,7 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
               disableUnderline: true,
               endAdornment: errors.email && (
                 <InputAdornment position="end">
-                  <Tooltip title={getErrorField('email')}><WarningRounded className='error-icon' /></Tooltip>
+                  <Tooltip title={getErrorField('email', errors)}><WarningRounded className='error-icon' /></Tooltip>
                 </InputAdornment>
               ),
               startAdornment: (
@@ -87,7 +74,7 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
               disableUnderline: true,
               endAdornment: errors.password && (
                 <InputAdornment position="end">
-                  <Tooltip title={getErrorField('password')}><WarningRounded className='error-icon' /></Tooltip>
+                  <Tooltip title={getErrorField('password', errors)}><WarningRounded className='error-icon' /></Tooltip>
                 </InputAdornment>
               ),
               startAdornment: (

@@ -9,7 +9,6 @@ export const ROUTES: StringMap = {
   activateUser: '/activate',
   login: '/auth/login',
   signup: '/auth/signup',
-  changePassword: '/change-password',
 };
 
 export const MOBILE_MAX_WIDTH = 1023;

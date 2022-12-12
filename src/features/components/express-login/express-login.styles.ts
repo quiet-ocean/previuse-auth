@@ -19,12 +19,12 @@ export const StyledSeperator = styled.div`
 
   hr {
     width: calc(50% - 24px);
-    background-color: #4723cd;
+    background-color: ${({ theme }) => theme.colors.primaryBackground};
   }
 
   div {
     padding: 0 12px;
-    color: #4723cd;
+    color: ${({ theme }) => theme.colors.primaryBackground};
     font-size: 18px;
     font-weight: bold;
   }
@@ -34,10 +34,10 @@ export const StyledButtons = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
-  
+
   button {
     text-transform: capitalize;
-    background-color: #e0e0e0;
+    background-color: ${({ theme }) => theme.colors.tertiaryBackgroundColor};
     width: calc(50% - 4px);
     color: #828282;
     font-size: 16px;

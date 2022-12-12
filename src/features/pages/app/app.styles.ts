@@ -16,4 +16,10 @@ export const GlobalStyle = createGlobalStyle`
   #root {
     height: 100%;
   }
+
+  .MuiDialog-paper {
+    && {
+      border-radius: 10px;
+    }
+  }
 `

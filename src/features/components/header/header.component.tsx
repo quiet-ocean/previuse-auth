@@ -10,11 +10,7 @@ import {
 
 import { ROUTES } from '../../../common/constants';
 
-export interface HeaderProps {
-  title?: string;
-}
-
-const HeaderComponent: FC<HeaderProps> = (props) => {
+const HeaderComponent: FC<{}> = () => {
   return (
     <StyledHeader position="static">
       <Toolbar>

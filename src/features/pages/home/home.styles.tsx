@@ -28,6 +28,12 @@ export const StyledWrapper = styled.div`
   height: 88%;
 `;
 
+export const StyledChangePassword = styled.div`
+  color: ${({ theme }) => theme.colors.primaryBackground};
+  padding-top: 12px;
+  cursor: pointer;
+`;
+
 export const StyledTicketButton = styled(Button)`
   width: 179px;
   height: 49px;
@@ -35,12 +41,12 @@ export const StyledTicketButton = styled(Button)`
   && {
     border-radius: 10px;
     text-transform: capitalize;
-    background-color: #4723cd;
+    background-color: ${({ theme }) => theme.colors.primaryBackground};
     color: #fff;
     margin-top: 33px;
     
     &:hover {
-      background-color: #4723cd;
+      background-color: ${({ theme }) => theme.colors.primaryBackground};
     }
   }
 
@@ -55,7 +61,7 @@ export const StyledAssistance = styled.div`
   padding-top: 64px;
 
   .title {
-    color: #4723cd;
+    color: ${({ theme }) => theme.colors.primaryBackground};
     font-size: 36px;
     font-weight: bold;
   }
@@ -68,7 +74,7 @@ export const StyledAssistance = styled.div`
 `;
 
 export const StyledDisclaimer = styled.div`
-  color: #828282;
+  color: ${({ theme }) => theme.colors.primaryTextColor};
   font-size: 14px;
   text-align: center;
   padding-top: 23px;
@@ -78,11 +84,11 @@ export const StyledDisclaimer = styled.div`
   a {
     font-weight: bold;
     padding: 0 3px;
-    color: #828282;
+    color: ${({ theme }) => theme.colors.primaryTextColor};
 
     &:hover {
       cursor: pointer;
-      border-bottom: 1px solid #828282;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.primaryTextColor};
     }
   }
 
@@ -111,7 +117,7 @@ export const StyledLink = styled(NavLink)`
 
   &.active {
     position: relative;
-    background-color: #5234c5 !important;
+    background-color: ${({ theme }) => theme.colors.secondaryBackgroundColor} !important;
     
     .MuiTab-wrapper {
       color: #fff !important;
@@ -120,14 +126,14 @@ export const StyledLink = styled(NavLink)`
     &:before {
       ${tab};
       left: -${cornerSize};
-      box-shadow: 0 20px 0 0 #5234c5;
+      box-shadow: 0 20px 0 0 ${({ theme }) => theme.colors.secondaryBackgroundColor};
       border-bottom-right-radius: 50%;
     }
     
     &:after {
       ${tab};
       right: -${cornerSize};
-      box-shadow: 0 20px 0 0 #5234c5;
+      box-shadow: 0 20px 0 0 ${({ theme }) => theme.colors.secondaryBackgroundColor};
       border-bottom-left-radius: 50%;
     }
   }
