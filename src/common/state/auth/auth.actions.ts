@@ -4,6 +4,7 @@ import EndPoints from '../../../swagger2Ts/endpoints';
 
 import {
   Activation,
+  PasswordResetConfirm,
   SendEmailReset,
   TokenObtainPair,
   TokenRefresh,
@@ -13,6 +14,7 @@ export enum AuthActionTypes {
   LOGIN = '@@auth/LOGIN',
   SIGNUP = '@@auth/SIGNUP',
   RESET_PASSWORD = '@@auth/RESET_PASSWORD',
+  RESET_PASSWORD_CONFIRM = '@@auth/RESET_PASSWORD_CONFIRM',
   ACTIVATE_USER = '@@auth/ACTIVATE_USER',
 }
 
@@ -31,6 +33,12 @@ export const SignUpAction: (args: TokenObtainPair) => Promise<TokenRefresh> = cr
 export const ResetPasswordAction: (args: SendEmailReset) => Promise<TokenRefresh> = createAsyncAction(
   AuthActionTypes.RESET_PASSWORD,
   (args) => HttpService.fetch({ ...EndPoints.auth_users_reset_password, body: JSON.stringify(args) }),
+  false
+);
+
+export const ResetPasswordConfirmAction: (args: PasswordResetConfirm) => Promise<void> = createAsyncAction(
+  AuthActionTypes.RESET_PASSWORD_CONFIRM,
+  (args) => HttpService.fetch({ ...EndPoints.auth_users_reset_password_confirm, body: JSON.stringify(args) }),
   false
 );
 
