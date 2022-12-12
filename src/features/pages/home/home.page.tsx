@@ -20,7 +20,7 @@ import {
 
 import { TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
 import { RootState } from '../../../common/models';
-import { LoginAction } from '../../../common/state/auth/auth.actions';
+import { LoginAction, SignUpAction } from '../../../common/state/auth/auth.actions';
 import { IServices } from '../../../common/services/initiate';
 import { ServicesContext } from '../../../common/contexts';
 import ExpressLoginComponent from '../../components/express-login/express-login.component';
@@ -28,6 +28,7 @@ import { ArrowForward } from '@material-ui/icons';
 
 interface HomePageProps {
   login: (args: TokenObtainPair) => Promise<TokenRefresh>;
+  signup: (args: TokenObtainPair) => Promise<TokenRefresh>;
 }
 
 const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
@@ -40,22 +41,29 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
     try {
       await props.login(args);
-      services.snackbar.actions.open({ content: 'logged in successfuly' })
+      services.snackbar.actions.open({ content: 'Logged in successfuly' })
     } catch {
-      services.snackbar.actions.open({ content: 'login failed', type: 'error' })
+      services.snackbar.actions.open({ content: 'Login failed', type: 'error' })
     } finally {
       services.loading.actions.stop();
     }
   }
 
-  const onSignUp = (args: TokenObtainPair) => {
-    /* eslint-disable */
-    console.log("signup: ", args);
+  const onSignUp = async (args: TokenObtainPair) => {
+    services.loading.actions.start();
+
+    try {
+      await props.signup(args);
+      services.snackbar.actions.open({ content: 'Signed up successfuly' })
+    } catch {
+      services.snackbar.actions.open({ content: 'Signup failed', type: 'error' })
+    } finally {
+      services.loading.actions.stop();
+    }
   }
 
   return (
     <StyledContainer>
-
       <StyledWrapper>
 
         <ExpressLoginComponent />
@@ -83,9 +91,11 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
         <StyledDisclaimer>
           <div>
-            <span>By signing up you agree to our</span>
-            <a>Terms Of Services</a>
-            <span>and</span>
+            <div>
+              <span>By signing up you agree to our</span>
+              <a>Terms Of Services</a>
+              <span>and</span>
+            </div>
             <a>Privacy Policy</a>
           </div>
         </StyledDisclaimer>
@@ -105,7 +115,8 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 };
 
 export const mapDispatchToProps = (dispatch: Dispatch<AnyAction, RootState>) => ({
-  login: bindActionCreators(LoginAction, dispatch)
+  login: bindActionCreators(LoginAction, dispatch),
+  signup: bindActionCreators(SignUpAction, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(HomePage);

@@ -77,6 +77,11 @@ export const StyledDisclaimer = styled.div`
   a {
     font-weight: bold;
     padding: 0 3px;
+
+    &:hover {
+      cursor: pointer;
+      border-bottom: 1px solid #828282;
+    }
   }
 
   > div {

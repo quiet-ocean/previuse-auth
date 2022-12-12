@@ -15,12 +15,12 @@ const SignupFormComponent: React.FC<SignupFormComponentProps> = (props) => {
     const formData = new FormData(e.target);
     props.onSubmit(Object.fromEntries(formData) as unknown as TokenObtainPair);
   }
-  
+
   return (
     <StyledContainer>
       <FormComponent>
         <form onSubmit={onSubmit}>
-          <input autoFocus required name='email' type="email" placeholder='Sign Up With email' />
+          <input autoFocus required name='username' type="text" placeholder='Sign Up With email' />
           <input required name='password' type="password" placeholder='Enter Password' />
 
           <Button type='submit'>
