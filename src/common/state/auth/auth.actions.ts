@@ -1,12 +1,14 @@
-// import createAsyncAction from '../../../utils/createAsyncAction';
-// import HttpService from '../../services/http.service';
+import createAsyncAction from '../../../utils/createAsyncAction';
+import HttpService from '../../services/http.service';
+import EndPoints from '../../../swagger2Ts/endpoints';
+import { TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
 
 export enum AuthActionTypes {
-  FETCH_LOGGED_IN_USER = '@@auth/FETCH_LOGGED_IN_USER'
+  LOGIN = '@@auth/LOGIN'
 }
 
-// export const FetchLoggedInUserAction: () => Promise<any> = createAsyncAction(
-//   AuthActionTypes.FETCH_LOGGED_IN_USER,
-//   () => HttpService.fetch(EndPoints.fetchUserInfoUsingGET)
-// );
-
+export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
+  AuthActionTypes.LOGIN,
+  (args) => HttpService.fetch({ ...EndPoints.auth_jwt_create_create, body: JSON.stringify(args) }),
+  false  
+);

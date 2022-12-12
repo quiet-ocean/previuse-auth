@@ -3,10 +3,10 @@ import {
   SUCCESS_SUFFIX,
   FAILED_SUFFIX
 } from '../common/constants';
-import { OpenDialogAction } from '../common/state/dialog/dialog.actions';
-import { StopLoaderAction } from '../common/state/general/general.actions';
+
 import { AnyAction, Dispatch } from 'redux';
 import { AsyncAction, RootState } from '../common/models';
+import { OpenSnackBarAction } from '../common/state/snackbar/snackbar.actions';
 
 interface Args {
   id: string;
@@ -14,7 +14,8 @@ interface Args {
 
 const createAsyncAction: AsyncAction = (
   type: string,
-  fn: (args: Args, getState: () => RootState) => Promise<AnyAction>
+  fn: (args: Args, getState: () => RootState) => Promise<AnyAction>,
+  catchError = true
 ) => {
   return (args: Args) => async (
     dispatch: Dispatch<AnyAction, RootState>,
@@ -29,15 +30,20 @@ const createAsyncAction: AsyncAction = (
     try {
       // activate promise call back
       result = await fn(args, getState);
-    } catch (error) {
+
+    } catch (error: unknown) {
       // dispatch fail action
       dispatch({
         type: `${type}${FAILED_SUFFIX}`,
         error: true,
         payload: error
       });
-      dispatch(StopLoaderAction());
-      dispatch(OpenDialogAction({ title: 'error', content: error.message }));
+      if (catchError) {
+        dispatch(OpenSnackBarAction({
+          content: JSON.parse((error as Error).message).message,
+          type: 'error'
+        }));
+      }
       throw error;
     }
     // dispatch success action

@@ -14,6 +14,7 @@ const theme: DefaultTheme = {
   colors: {
     primaryWhite: '#fff',
     primaryBackgroundColor,
+    primaryBackground: '#4723cd',
     secondaryBackgroundColor: '#ce1026',
     lighterBackgroundColor: 'rgb(248, 249, 253)',
     tertiaryBackgroundColor: '#dceaff',

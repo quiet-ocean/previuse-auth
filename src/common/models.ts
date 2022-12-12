@@ -16,8 +16,10 @@ export interface Endpoint {
   body?: any;
 }
 
-export type AsyncAction = (type: string, fn: (params?: any) => Promise<any>) => any;
+export type AsyncAction = (type: string, fn: (params?: any) => Promise<any>, catchError?: boolean) => any;
 
 export type ActionCreator = (
   args?: any
 ) => (dispatch: Dispatch<Action, AnyAction>, getState: () => RootState) => any;
+
+export declare type SnackBarType = 'error' | 'success';

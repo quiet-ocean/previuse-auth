@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import User from '../../../common/state/auth/auth.models';
 import { DirectionContext } from '../../../common/contexts';
-import { RootState, StringMap } from '../../../common/models';
+import { RootState, SnackBarType, StringMap } from '../../../common/models';
 import urlTitleDictionary from '../../../common/state/general/url-title-dictionary';
 
 import {
@@ -24,6 +24,7 @@ import { IServices } from '../../../common/services/initiate';
 import HeaderComponent from '../../components/header/header.component';
 import DialogComponent from '../../components/dialog/dialog.component';
 import { DialogTypes } from '../../../common/state/dialog/dialog.state';
+import SnackBarComponent from '../../components/snackbar/snackbar.component';
 
 interface AppProps {
   path: string;
@@ -37,6 +38,9 @@ interface AppProps {
   language: string;
   languages: StringMap;
   dialogType?: DialogTypes;
+  snackbackContent?: JSX.Element;
+  snackbarType?: SnackBarType;
+  isSnackbarOpen: boolean;
 }
 
 interface DispatchProps {
@@ -109,6 +113,14 @@ const DefaultLayout: React.FC<AppProps & DispatchProps> = ({ ...props }) => {
                 fullScreen={props.dialogType === DialogTypes.FULL}
                 maxWidth={getDialogWidth()}
               />
+
+              <SnackBarComponent
+                open={props.isSnackbarOpen}
+                message={props.snackbackContent as any}
+                onClose={services.snackbar.actions.close}
+                type={props.snackbarType}
+                autoHideDuration={6000}
+              />
             </StyledContainer>
           </div>
         )}
@@ -126,7 +138,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction, RootState>) => {
 };
 
 const mapStateToProps = (state: RootState) => {
-  const { general, dialog, drawer } = state.view;
+  const { general, dialog, drawer, snackbar } = state.view;
   const { auth } = state.app;
   return {
     user: auth.loggedInUser,
@@ -137,7 +149,10 @@ const mapStateToProps = (state: RootState) => {
     loading: general.loading,
     isDrawerRender: drawer.isRender,
     language: general.language,
-    languages: general.languages
+    languages: general.languages,
+    snackbackContent: snackbar.content,
+    snackbarType: snackbar.type,
+    isSnackbarOpen: snackbar.open,
   };
 };
 

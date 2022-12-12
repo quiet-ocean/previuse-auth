@@ -15,22 +15,38 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  // TODO: create form component
   form {
-    min-height: 112px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
     input {
-      border: solid 1px #4723cd;
+      border: ${({ theme }) => `solid 1px ${theme.colors.primaryBackground}`};
       height: 49px;
-      width: 100%;
+      width: calc(100% - 26px);
       border-radius: 10px;
       padding: 0 12px;
+      margin-bottom: 12px;
   
       &::placeholder {
         text-align: center;
         color: #bdbdbd;
+        font-size: 16px;
+      }
+    }
+
+    button[type=submit] {
+      background-color: ${({ theme }) => theme.colors.primaryBackground};
+      color: #fff;
+      border-radius: 10px !important;
+      width: 100%;
+      height: 49px;
+      text-transform: capitalize;
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.primaryBackground};
+      }
+
+      svg {
+        position: absolute;
+        left: 24px;
         font-size: 16px;
       }
     }
