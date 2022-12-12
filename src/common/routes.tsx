@@ -11,6 +11,7 @@ import myTheme from '../assets/themes/theme.default';
 import { ServicesContext } from '../common/contexts';
 
 import HomePage from '../features/pages/home/home.page';
+import ActivateUserPage from '../features/pages/activate-user/activate-user.page';
 
 import DefaultLayout from '../features/pages/default-layout/default-layout.page';
 import App from '../features/pages/app/app.page';
@@ -36,6 +37,11 @@ const Root: React.FC<RootProps> = ({ store, services }) => {
                   <DefaultLayout
                     path={ROUTES.home}
                     component={HomePage}
+                  />
+                  
+                  <DefaultLayout
+                    path={ROUTES.activateUser}
+                    component={ActivateUserPage}
                   />
 
                   {/* Keep at bottom */}

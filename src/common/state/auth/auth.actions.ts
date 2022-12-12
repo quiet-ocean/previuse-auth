@@ -1,12 +1,19 @@
 import createAsyncAction from '../../../utils/createAsyncAction';
 import HttpService from '../../services/http.service';
 import EndPoints from '../../../swagger2Ts/endpoints';
-import { SendEmailReset, TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
+
+import {
+  Activation,
+  SendEmailReset,
+  TokenObtainPair,
+  TokenRefresh,
+} from '../../../swagger2Ts/interfaces';
 
 export enum AuthActionTypes {
   LOGIN = '@@auth/LOGIN',
   SIGNUP = '@@auth/SIGNUP',
   RESET_PASSWORD = '@@auth/RESET_PASSWORD',
+  ACTIVATE_USER = '@@auth/ACTIVATE_USER',
 }
 
 export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
@@ -24,5 +31,11 @@ export const SignUpAction: (args: TokenObtainPair) => Promise<TokenRefresh> = cr
 export const ResetPasswordAction: (args: SendEmailReset) => Promise<TokenRefresh> = createAsyncAction(
   AuthActionTypes.RESET_PASSWORD,
   (args) => HttpService.fetch({ ...EndPoints.auth_users_reset_password, body: JSON.stringify(args) }),
+  false
+);
+
+export const ActivateUserAction: (args: Activation) => Promise<void> = createAsyncAction(
+  AuthActionTypes.ACTIVATE_USER,
+  (args) => HttpService.fetch({ ...EndPoints.auth_jwt_verify_create, body: JSON.stringify(args) }),
   false
 );

@@ -5,9 +5,10 @@ export const FAILED_SUFFIX = '_FAILED';
 export const SUCCESS_SUFFIX = '_SUCCESS';
 
 export const ROUTES: StringMap = {
-  home: '/',
-  login: '/login',
-  signup: '/signup',
+  home: '/auth',
+  activateUser: '/activate',
+  login: '/auth/login',
+  signup: '/auth/signup',
   changePassword: '/change-password',
 };
 
