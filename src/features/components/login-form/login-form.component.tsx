@@ -87,7 +87,7 @@ const LoginFormComponent: React.FC<LoginFormComponentProps> = (props) => {
               disableUnderline: true,
               endAdornment: errors.password && (
                 <InputAdornment position="end">
-                  <Tooltip title={getErrorField('password')}><WarningRounded /></Tooltip>
+                  <Tooltip title={getErrorField('password')}><WarningRounded className='error-icon' /></Tooltip>
                 </InputAdornment>
               ),
               startAdornment: (
