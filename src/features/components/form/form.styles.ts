@@ -19,7 +19,7 @@ const StyledContainer = styled.div`
 
       &::placeholder {
         text-align: center;
-        color: #bdbdbd;
+        color: ${({ theme }) => theme.colors.lighterBackgroundColor};
         font-size: 16px;
       }
     }
@@ -30,7 +30,7 @@ const StyledContainer = styled.div`
     }
 
     .input-icon svg {
-      color: #bdbdbd;
+      color: ${({ theme }) => theme.colors.lighterBackgroundColor};
     }
 
     button[type=submit] {

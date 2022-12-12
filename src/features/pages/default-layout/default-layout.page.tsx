@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import { StyledContainer, StyledContent } from './default-layout.styles';
 import { AnyAction, bindActionCreators, Dispatch, ActionCreator } from 'redux';
-import { useTranslation } from 'react-i18next';
 
 import User from '../../../common/state/auth/auth.models';
 import { DirectionContext } from '../../../common/contexts';
 import { RootState, SnackBarType, StringMap } from '../../../common/models';
-import urlTitleDictionary from '../../../common/state/general/url-title-dictionary';
 
 import {
   ChangeLanguageAction,
@@ -51,8 +49,6 @@ interface DispatchProps {
 }
 
 const DefaultLayout: React.FC<AppProps & DispatchProps> = ({ ...props }) => {
-  const [t] = useTranslation();
-  const title = props.path && !Array.isArray(props.path) ? urlTitleDictionary[props.path] : '';
   const Component = props.component;
   const services: IServices | undefined = useContext(ServicesContext);
 
@@ -99,7 +95,7 @@ const DefaultLayout: React.FC<AppProps & DispatchProps> = ({ ...props }) => {
         path={props.path}
         render={(matchProps: RouteChildrenProps) => (
           <div dir={direction}>
-            <HeaderComponent title={t(title)} />
+            <HeaderComponent />
             <StyledContainer>
               {props.loading && <SpinnerComponent />}
 

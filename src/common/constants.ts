@@ -5,10 +5,10 @@ export const FAILED_SUFFIX = '_FAILED';
 export const SUCCESS_SUFFIX = '_SUCCESS';
 
 export const ROUTES: StringMap = {
-  home: '/',
-  login: '/login',
-  signup: '/signup',
-  changePassword: '/change-password',
+  home: '/auth',
+  activateUser: '/activate',
+  login: '/auth/login',
+  signup: '/auth/signup',
 };
 
 export const MOBILE_MAX_WIDTH = 1023;
