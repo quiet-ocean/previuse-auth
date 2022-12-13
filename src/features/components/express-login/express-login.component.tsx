@@ -10,7 +10,7 @@ import StyledContainer, {
 } from './express-login.styles';
 
 export interface ExpressLoginComponentProps {
-
+  onLoginWithGoogle: () => void;
 }
 
 const ExpressLoginComponent: React.FC<ExpressLoginComponentProps> = (props) => {
@@ -24,7 +24,7 @@ const ExpressLoginComponent: React.FC<ExpressLoginComponentProps> = (props) => {
           <Facebook />
         </Button>
 
-        <Button className='google'>
+        <Button className='google' onClick={props.onLoginWithGoogle}>
           <span>google</span>
           <Google />
         </Button>

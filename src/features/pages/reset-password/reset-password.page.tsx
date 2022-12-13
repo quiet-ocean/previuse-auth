@@ -53,6 +53,11 @@ const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> =
   const onTogglePassword = () => setShowPassword(!showPassword);
 
   const onSubmit = async (e: FieldValues) => {
+    if (e.new_password !== e.new_password2) {
+      setError('new_password2', { message: 'Passwords do no match' });
+      return;
+    }
+
     try {
       const payload: PasswordResetConfirm = {
         new_password: e.new_password,
@@ -80,13 +85,40 @@ const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> =
               name='new_password'
               type={showPassword ? 'text' : 'password'}
               placeholder='Enter Password'
-              className={errors.password ? 'error' : undefined}
+              className={errors.new_password ? 'error' : undefined}
               fullWidth
               InputProps={{
                 disableUnderline: true,
                 endAdornment: errors.new_password && (
                   <InputAdornment position="end">
                     <Tooltip title={getErrorField('new_password', errors)}><WarningRounded className='error-icon' /></Tooltip>
+                  </InputAdornment>
+                ),
+                startAdornment: (
+                  <InputAdornment position='start' className='input-icon'>
+                    <ButtonComponent
+                      type='icon'
+                      iconElement={showPassword ? <VisibilityOff /> : <Visibility />}
+                      onClick={onTogglePassword}
+                    />
+                  </InputAdornment>
+                )
+              }}
+            />
+
+            <TextField
+              {...register('new_password2')}
+              required
+              name='new_password2'
+              type={showPassword ? 'text' : 'password'}
+              placeholder='Verify Password'
+              className={errors.new_password2 ? 'error' : undefined}
+              fullWidth
+              InputProps={{
+                disableUnderline: true,
+                endAdornment: errors.new_password2 && (
+                  <InputAdornment position="end">
+                    <Tooltip title={getErrorField('new_password2', errors)}><WarningRounded className='error-icon' /></Tooltip>
                   </InputAdornment>
                 ),
                 startAdornment: (

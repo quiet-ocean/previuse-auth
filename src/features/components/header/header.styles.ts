@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
-import { NavLink } from 'react-router-dom';
 
 export const StyledHeader = styled(AppBar)`
   justify-content: center;
@@ -23,6 +22,6 @@ export const StyledWrapper = styled.div`
   flex-grow: 1;
 `;
 
-export const StyledLogo = styled(NavLink)`
+export const StyledLogo = styled.a`
   display: flex;
 `;
