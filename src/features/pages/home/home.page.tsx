@@ -43,6 +43,10 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     if (window.location.pathname.split('/').includes('activate')) {
       props.history.push(ROUTES.activateUser)
     }
+
+    if (window.location.pathname.split('/').includes('password')) {
+      props.history.push(ROUTES.resetPassword)
+    }
   }, [])
 
   const onLogin = async (args: TokenObtainPair) => {
@@ -63,7 +67,8 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
     try {
       await props.signup(args as TokenObtainPair);
-      services.snackbar.actions.open({ content: 'Signed up successfuly' });
+      services.snackbar.actions.open({ content: 'Confirmation email was sent' });
+      props.history.push(ROUTES.verifyAccount);
     } catch (e) {
       services.snackbar.actions.open({ content: 'Signup failed', type: 'error' });
       throw e;
@@ -113,7 +118,7 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
           </Route>
 
           <Route exact path={ROUTES.signup}>
-            <LoginFormComponent onSubmit={onSignUp} submitText="Log In" key={2} />
+            <LoginFormComponent onSubmit={onSignUp} submitText="Sign Up" key={2} />
           </Route>
 
           <Route path='*'>
