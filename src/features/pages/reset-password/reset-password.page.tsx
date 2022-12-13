@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useState } from 'react';
+import React, { Dispatch, useContext, useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { RouteChildrenProps } from 'react-router';
 import { connect } from 'react-redux';
@@ -20,6 +20,7 @@ import { ServicesContext } from '../../../common/contexts';
 import FormComponent from '../../components/form/form.component';
 import ButtonComponent from '../../components/button/button.component';
 import { getErrorField } from '../../../utils/general-utils';
+import { ROUTES } from '../../../common/constants';
 
 export interface ResetPasswordPageProps {
   resetPassword: (args: PasswordResetConfirm) => Promise<void>;
@@ -35,6 +36,12 @@ const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> =
   const services: IServices | undefined = useContext(ServicesContext);
 
   if (!services) return null;
+
+  useEffect(() => {
+    if (!uid || !token) {
+      props.history.push(ROUTES.login);
+    }
+  }, [])
 
   const {
     register,
