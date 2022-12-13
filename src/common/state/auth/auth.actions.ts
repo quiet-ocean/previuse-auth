@@ -5,11 +5,12 @@ import EndPoints from '../../../swagger2Ts/endpoints';
 import {
   Activation,
   PasswordResetConfirm,
+  ProviderAuth,
   SendEmailReset,
   TokenObtainPair,
   TokenRefresh,
 } from '../../../swagger2Ts/interfaces';
-import { GoogleAuthUrl } from '../../models';
+import { GoogleAuthUrl, GoogleLoginArgs } from '../../models';
 
 export enum AuthActionTypes {
   LOGIN = '@@auth/LOGIN',
@@ -18,6 +19,7 @@ export enum AuthActionTypes {
   RESET_PASSWORD_CONFIRM = '@@auth/RESET_PASSWORD_CONFIRM',
   ACTIVATE_USER = '@@auth/ACTIVATE_USER',
   GET_GOOGLE_AUTH_URL = '@@auth/GET_GOOGLE_AUTH_URL',
+  GOOGLE_LOGIN = '@@auth/GOOGLE_LOGIN',
 }
 
 export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
@@ -77,6 +79,20 @@ export const ActivateUserAction: (args: Activation) => Promise<void> = createAsy
   (args) => {
     const options = {
       ...EndPoints.auth_users_activation,
+      contentType: 'application/json'
+    }
+
+    return HttpService.fetch({ ...options, body: JSON.stringify(args) });
+  },
+  false
+);
+
+export const GoogleLoginAction: (args: GoogleLoginArgs) => Promise<ProviderAuth> = createAsyncAction(
+  AuthActionTypes.GOOGLE_LOGIN,
+  (args) => {
+    const options = {
+      method: 'POST',
+      url: `/social-auth/o/google-oauth2/?state=${args.state}&code=${args.code}`,
       contentType: 'application/json'
     }
 

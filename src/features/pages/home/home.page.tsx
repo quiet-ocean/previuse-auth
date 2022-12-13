@@ -6,6 +6,7 @@ import { Tab, Tabs } from '@material-ui/core';
 import { TabContext } from '@material-ui/lab';
 import { ArrowForward } from '@material-ui/icons';
 import { FieldValues } from 'react-hook-form';
+import querystring from 'query-string';
 
 import { ROUTES } from '../../../common/constants';
 import LoginFormComponent from '../../components/login-form/login-form.component';
@@ -20,11 +21,18 @@ import {
   StyledChangePassword
 } from './home.styles';
 
-import { SendEmailReset, TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
-import { GoogleAuthUrl, RootState } from '../../../common/models';
+import {
+  ProviderAuth,
+  SendEmailReset,
+  TokenObtainPair,
+  TokenRefresh
+} from '../../../swagger2Ts/interfaces';
+
+import { GoogleAuthUrl, GoogleLoginArgs, RootState } from '../../../common/models';
 
 import {
   GetGoogleAuthUrlAction,
+  GoogleLoginAction,
   LoginAction,
   ResetPasswordAction,
   SignUpAction
@@ -40,6 +48,7 @@ interface HomePageProps {
   signup: (args: TokenObtainPair) => Promise<TokenRefresh>;
   resetPassword: (args: SendEmailReset) => Promise<TokenRefresh>;
   getGoogleAuthUrl: () => Promise<GoogleAuthUrl>;
+  googleLogin: (args: GoogleLoginArgs) => Promise<ProviderAuth>;
 }
 
 const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
@@ -49,13 +58,28 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
 
   useEffect(() => {
     if (window.location.pathname.split('/').includes('activate')) {
-      props.history.push(ROUTES.activateUser)
+      props.history.push(ROUTES.activateUser);
     }
 
     if (window.location.pathname.split('/').includes('password')) {
-      props.history.push(ROUTES.resetPassword)
+      props.history.push(ROUTES.resetPassword);
     }
-  }, [])
+
+    if (window.location.pathname.split('/').includes('google')) {
+      googleLogin();
+    }
+  }, []);
+
+  const googleLogin = async () => {
+    const args = querystring.parse(window.location.search);
+
+    if (args.state && args.code) {
+      await props.googleLogin({
+        state: encodeURIComponent(args.state as string),
+        code: encodeURIComponent(args.code as string)
+      });
+    }
+  }
 
   const onLogin = async (args: TokenObtainPair) => {
     services.loading.actions.start();
@@ -111,7 +135,7 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     services.loading.actions.start();
     try {
       const googleAuthUrl = await props.getGoogleAuthUrl();
-      window.open(googleAuthUrl.authorization_url);
+      window.open(googleAuthUrl.authorization_url, '_self');
     } finally {
       services.loading.actions.stop();
     }
@@ -175,7 +199,8 @@ export const mapDispatchToProps = (dispatch: Dispatch<AnyAction, RootState>) => 
   login: bindActionCreators(LoginAction, dispatch),
   signup: bindActionCreators(SignUpAction, dispatch),
   resetPassword: bindActionCreators(ResetPasswordAction, dispatch),
-  getGoogleAuthUrl: bindActionCreators(GetGoogleAuthUrlAction, dispatch)
+  getGoogleAuthUrl: bindActionCreators(GetGoogleAuthUrlAction, dispatch),
+  googleLogin: bindActionCreators(GoogleLoginAction, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(HomePage);

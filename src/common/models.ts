@@ -27,3 +27,8 @@ export declare type SnackBarType = 'error' | 'success';
 export interface GoogleAuthUrl {
   authorization_url: string;
 }
+
+export interface GoogleLoginArgs {
+  state: string;
+  code: string;
+}
