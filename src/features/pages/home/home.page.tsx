@@ -66,18 +66,22 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     }
 
     if (window.location.pathname.split('/').includes('google')) {
-      googleLogin();
+      onGoogleLogin();
     }
   }, []);
 
-  const googleLogin = async () => {
+  const onGoogleLogin = async () => {
     const args = querystring.parse(window.location.search);
 
     if (args.state && args.code) {
-      await props.googleLogin({
-        state: encodeURIComponent(args.state as string),
-        code: encodeURIComponent(args.code as string)
-      });
+      try {
+        await props.googleLogin({
+          state: encodeURIComponent(args.state as string),
+          code: encodeURIComponent(args.code as string)
+        });
+      } catch (e) {
+        services.snackbar.actions.open({ content: 'Google login failed', type: 'error' });
+      }
     }
   }
 

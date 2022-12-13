@@ -65,11 +65,15 @@ const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> =
         token
       }
 
+      services.loading.actions.start();
       await props.resetPassword(payload);
       services.snackbar.actions.open({ content: 'Password changed successfuly' });
+      setTimeout(() => window.location.replace('/'), 3000);
     } catch (e: any) {
       Object.keys(e).forEach((name: any) => setError(name, e[name]));
       services.snackbar.actions.open({ content: 'Error changing password', type: 'error' });
+    } finally {
+      services.loading.actions.stop();
     }
   }
 
@@ -81,6 +85,7 @@ const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> =
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               {...register('new_password')}
+              autoFocus
               required
               name='new_password'
               type={showPassword ? 'text' : 'password'}
