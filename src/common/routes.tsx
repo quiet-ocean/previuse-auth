@@ -16,10 +16,12 @@ import App from '../features/pages/app/app.page';
 import PageNotFound from '../features/pages/not-found/not-found.page';
 
 import HomePage from '../features/pages/home/home.page';
+import ResetPasswordPage from '../features/pages/reset-password/reset-password.page';
 import ActivateUserPage from '../features/pages/activate-user/activate-user.page';
 
 import { RootState } from './reducers';
 import { IServices } from './services/initiate';
+import VerifyAccountPage from '../features/pages/verify-account/verify-account.page';
 
 interface RootProps {
   store: Store<RootState, AnyAction>;
@@ -43,6 +45,16 @@ const Root: React.FC<RootProps> = ({ store, services }) => {
                   <DefaultLayout
                     path={ROUTES.activateUser}
                     component={ActivateUserPage}
+                  />
+                  
+                  <DefaultLayout
+                    path={ROUTES.resetPassword}
+                    component={ResetPasswordPage}
+                  />
+                  
+                  <DefaultLayout
+                    path={ROUTES.verifyAccount}
+                    component={VerifyAccountPage}
                   />
 
                   {/* Keep at bottom */}

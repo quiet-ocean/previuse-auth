@@ -60,7 +60,7 @@
     "build": "rimraf build && react-app-rewired build",
     "test": "react-app-rewired test --verbose --coverage --runInBand --collectCoverageFrom='src/**/**/**/*.component.tsx'",
     "test:ci": "export CI=true && npm test",
-    "server": "nodemon ./src/server/run-node-server.js",
+    "server": "node ./src/server/run-node-server.js",
     "dev": "sh ./scripts/start-dev.sh",
     "build-swagger-ts": "swagger-to-interfaces --pathToFile=./swagger.json --destinationFolderName=./src/swagger2Ts"
   },
