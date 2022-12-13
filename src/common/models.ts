@@ -23,3 +23,7 @@ export type ActionCreator = (
 ) => (dispatch: Dispatch<Action, AnyAction>, getState: () => RootState) => any;
 
 export declare type SnackBarType = 'error' | 'success';
+
+export interface GoogleAuthUrl {
+  authorization_url: string;
+}

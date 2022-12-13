@@ -10,16 +10,14 @@ import {
 
 import { ROUTES } from '../../../common/constants';
 
-const HeaderComponent: FC<{}> = () => {
-  return (
-    <StyledHeader position="static">
-      <Toolbar>
-        <StyledWrapper>
-          <StyledLogo to={ROUTES.login}><img src={logo} /></StyledLogo>
-        </StyledWrapper>
-      </Toolbar>
-    </StyledHeader>
-  )
-};
+const HeaderComponent: FC<{}> = () => (
+  <StyledHeader position="static">
+    <Toolbar>
+      <StyledWrapper>
+        <StyledLogo href={'/#' + ROUTES.login}><img src={logo} /></StyledLogo>
+      </StyledWrapper>
+    </Toolbar>
+  </StyledHeader>
+);
 
 export default HeaderComponent;

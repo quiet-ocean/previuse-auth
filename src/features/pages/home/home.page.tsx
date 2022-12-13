@@ -21,8 +21,15 @@ import {
 } from './home.styles';
 
 import { SendEmailReset, TokenObtainPair, TokenRefresh } from '../../../swagger2Ts/interfaces';
-import { RootState } from '../../../common/models';
-import { LoginAction, ResetPasswordAction, SignUpAction } from '../../../common/state/auth/auth.actions';
+import { GoogleAuthUrl, RootState } from '../../../common/models';
+
+import {
+  GetGoogleAuthUrlAction,
+  LoginAction,
+  ResetPasswordAction,
+  SignUpAction
+} from '../../../common/state/auth/auth.actions';
+
 import { IServices } from '../../../common/services/initiate';
 import { ServicesContext } from '../../../common/contexts';
 import ExpressLoginComponent from '../../components/express-login/express-login.component';
@@ -32,6 +39,7 @@ interface HomePageProps {
   login: (args: TokenObtainPair) => Promise<TokenRefresh>;
   signup: (args: TokenObtainPair) => Promise<TokenRefresh>;
   resetPassword: (args: SendEmailReset) => Promise<TokenRefresh>;
+  getGoogleAuthUrl: () => Promise<GoogleAuthUrl>;
 }
 
 const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
@@ -99,11 +107,21 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     })
   }
 
+  const onLoginWithGoogle = async () => {
+    services.loading.actions.start();
+    try {
+      const googleAuthUrl = await props.getGoogleAuthUrl();
+      window.open(googleAuthUrl.authorization_url);
+    } finally {
+      services.loading.actions.stop();
+    }
+  }
+
   return (
     <StyledContainer>
       <StyledWrapper>
 
-        <ExpressLoginComponent />
+        <ExpressLoginComponent onLoginWithGoogle={onLoginWithGoogle} />
 
         <TabContext value='0'>
           <Tabs value={false}>
@@ -157,6 +175,7 @@ export const mapDispatchToProps = (dispatch: Dispatch<AnyAction, RootState>) => 
   login: bindActionCreators(LoginAction, dispatch),
   signup: bindActionCreators(SignUpAction, dispatch),
   resetPassword: bindActionCreators(ResetPasswordAction, dispatch),
+  getGoogleAuthUrl: bindActionCreators(GetGoogleAuthUrlAction, dispatch)
 });
 
 export default connect(null, mapDispatchToProps)(HomePage);

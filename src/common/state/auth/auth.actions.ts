@@ -9,6 +9,7 @@ import {
   TokenObtainPair,
   TokenRefresh,
 } from '../../../swagger2Ts/interfaces';
+import { GoogleAuthUrl } from '../../models';
 
 export enum AuthActionTypes {
   LOGIN = '@@auth/LOGIN',
@@ -16,6 +17,7 @@ export enum AuthActionTypes {
   RESET_PASSWORD = '@@auth/RESET_PASSWORD',
   RESET_PASSWORD_CONFIRM = '@@auth/RESET_PASSWORD_CONFIRM',
   ACTIVATE_USER = '@@auth/ACTIVATE_USER',
+  GET_GOOGLE_AUTH_URL = '@@auth/GET_GOOGLE_AUTH_URL',
 }
 
 export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = createAsyncAction(
@@ -81,4 +83,11 @@ export const ActivateUserAction: (args: Activation) => Promise<void> = createAsy
     return HttpService.fetch({ ...options, body: JSON.stringify(args) });
   },
   false
+);
+
+export const GetGoogleAuthUrlAction: () => Promise<GoogleAuthUrl> = createAsyncAction(
+  AuthActionTypes.GET_GOOGLE_AUTH_URL,
+  () => HttpService.fetch({
+    url: `/social-auth/o/google-oauth2/?redirect_uri=${window.location.origin}/google`
+  })
 );
