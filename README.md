@@ -1,6 +1,4 @@
 ✨previuse-ui
-> supports node version **14.15.4**
-
 ---
 
 previuse-ui was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
