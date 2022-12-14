@@ -1,4 +1,4 @@
-###✨previuse-ui
+✨previuse-ui
 > supports node version **14.15.4**
 
 ---
@@ -13,7 +13,7 @@ previuse-ui was bootstrapped with [Create React App](https://github.com/facebook
 * react i18n
 * express
 * react-app-rewired
-* eslint costume configuration
+* eslint custom configuration
 
 ## Available Scripts
 
