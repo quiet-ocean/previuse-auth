@@ -17,4 +17,5 @@ export const StyledContent: AnyStyledComponent = styled.div`
   padding: ${({ theme }) => theme.spacing.framePadding};
   width: calc(100% - 64px);
   height: calc(100% - 64px);
+  overflow: auto;
 `;

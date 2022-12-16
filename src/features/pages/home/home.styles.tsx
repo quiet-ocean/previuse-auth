@@ -58,7 +58,7 @@ export const StyledTicketButton = styled(Button)`
 
 export const StyledAssistance = styled.div`
   text-align: center;
-  padding-top: 64px;
+  padding: 64px 0;
 
   .title {
     color: ${({ theme }) => theme.colors.primaryBackground};
