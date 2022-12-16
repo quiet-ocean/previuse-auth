@@ -12,7 +12,6 @@ export const StyledHeader = styled(AppBar)`
 
   height: 90px !important;
   box-shadow: none !important;
-  color: red !important;
 `;
 
 export const StyledWrapper = styled.div`

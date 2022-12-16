@@ -26,7 +26,7 @@ export const LoginAction: (args: TokenObtainPair) => Promise<TokenRefresh> = cre
   AuthActionTypes.LOGIN,
   (args) => {
     const options = {
-      ...EndPoints.auth_jwt_create_create,
+      ...EndPoints.auth_login_create,
       contentType: 'application/json'
     }
 

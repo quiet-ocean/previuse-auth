@@ -57,6 +57,7 @@
     "pretest": "npm run build-swagger-ts",
     "prestorybook": "npm run build-swagger-ts",
     "start": "react-app-rewired start",
+    "create-user": "sh ./scripts/create-super-user.sh",
     "update-build": "node ./update-build.js",
     "build": "rimraf build && react-app-rewired build",
     "test": "react-app-rewired test --verbose --coverage --runInBand --collectCoverageFrom='src/**/**/**/*.component.tsx'",

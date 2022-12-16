@@ -12,7 +12,7 @@
     },
     "version": "v1"
   },
-  "host": "3.125.137.91:8000",
+  "host": "localhost:8000",
   "schemes": [
     "http"
   ],
@@ -110,6 +110,50 @@
             "schema": {
               "$ref": "#/definitions/TokenVerify"
             }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/login/": {
+      "post": {
+        "operationId": "auth_login_create",
+        "description": "Use this endpoint to obtain user authentication token.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenCreate"
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/logout/": {
+      "post": {
+        "operationId": "auth_logout_create",
+        "description": "Use this endpoint to logout user (remove user authentication token).",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
           }
         },
         "tags": [
@@ -564,6 +608,100 @@
         }
       ]
     },
+    "/campains/activate_deactivate_campain": {
+      "get": {
+        "operationId": "campains_activate_deactivate_campain_list",
+        "description": "if you pulling the queries by automatic option please make sure to add id (integer)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CampainActive"
+              }
+            }
+          }
+        },
+        "tags": [
+          "campains"
+        ]
+      },
+      "post": {
+        "operationId": "campains_activate_deactivate_campain_create",
+        "description": "if you pulling the queries by automatic option please make sure to add id (integer)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CampainActive"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CampainActive"
+            }
+          }
+        },
+        "tags": [
+          "campains"
+        ]
+      },
+      "parameters": []
+    },
+    "/campains/activate_deactivate_project": {
+      "get": {
+        "operationId": "campains_activate_deactivate_project_list",
+        "description": "if you pulling the queries by automatic option please make sure to add id (integer)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectActive"
+              }
+            }
+          }
+        },
+        "tags": [
+          "campains"
+        ]
+      },
+      "post": {
+        "operationId": "campains_activate_deactivate_project_create",
+        "description": "if you pulling the queries by automatic option please make sure to add id (integer)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProjectActive"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProjectActive"
+            }
+          }
+        },
+        "tags": [
+          "campains"
+        ]
+      },
+      "parameters": []
+    },
     "/campains/add_user_to_project/": {
       "get": {
         "operationId": "campains_add_user_to_project_list",
@@ -674,6 +812,10 @@
             }
           }
         },
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
         "tags": [
           "campains"
         ]
@@ -683,12 +825,25 @@
         "description": "",
         "parameters": [
           {
-            "name": "data",
-            "in": "body",
+            "name": "project_name",
+            "in": "formData",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/Project"
-            }
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          {
+            "name": "project_pic",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "x-nullable": true
+          },
+          {
+            "name": "active",
+            "in": "formData",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -699,6 +854,10 @@
             }
           }
         },
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
         "tags": [
           "campains"
         ]
@@ -877,6 +1036,21 @@
         }
       }
     },
+    "TokenCreate": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "title": "Password",
+          "type": "string",
+          "minLength": 1
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
     "User": {
       "type": "object",
       "properties": {
@@ -962,14 +1136,12 @@
           "title": "First name",
           "type": "string",
           "maxLength": 256,
-          "minLength": 1,
           "x-nullable": true
         },
         "last_name": {
           "title": "Last name",
           "type": "string",
           "maxLength": 256,
-          "minLength": 1,
           "x-nullable": true
         },
         "password": {
@@ -1073,6 +1245,34 @@
         }
       }
     },
+    "CampainActive": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
+        }
+      }
+    },
+    "ProjectActive": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
+        }
+      }
+    },
     "ProjectPermittion": {
       "required": [
         "project_user_permittion",
@@ -1090,10 +1290,10 @@
           "title": "Project user permittion",
           "type": "integer",
           "enum": [
-            "owner",
-            "edit",
-            "comment",
-            "view"
+            "foo",
+            "bar",
+            "baz",
+            "qux"
           ]
         },
         "project_name": {
@@ -1161,6 +1361,10 @@
           "maxLength": 200,
           "x-nullable": true
         },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
+        },
         "related_project": {
           "title": "Related project",
           "type": "integer"
@@ -1190,6 +1394,10 @@
           "readOnly": true,
           "x-nullable": true,
           "format": "uri"
+        },
+        "active": {
+          "title": "Active",
+          "type": "boolean"
         }
       }
     },
