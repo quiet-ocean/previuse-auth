@@ -23,6 +23,7 @@ import HeaderComponent from '../../components/header/header.component';
 import DialogComponent from '../../components/dialog/dialog.component';
 import { DialogTypes } from '../../../common/state/dialog/dialog.state';
 import SnackBarComponent from '../../components/snackbar/snackbar.component';
+import background from '../../../assets/images/background.png';
 
 interface AppProps {
   path: string;
@@ -96,7 +97,7 @@ const DefaultLayout: React.FC<AppProps & DispatchProps> = ({ ...props }) => {
         render={(matchProps: RouteChildrenProps) => (
           <div dir={direction}>
             <HeaderComponent />
-            <StyledContainer>
+            <StyledContainer style={{ backgroundImage: `url(${background})` }}>
               {props.loading && <SpinnerComponent />}
 
               <StyledContent><Component {...matchProps} /></StyledContent>
