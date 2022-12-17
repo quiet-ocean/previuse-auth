@@ -91,6 +91,7 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
     try {
       await props.login(args);
       services.snackbar.actions.open({ content: 'Logged in successfuly' });
+      window.location.reload();
     } catch {
       services.snackbar.actions.open({ content: 'Login failed', type: 'error' });
     } finally {
