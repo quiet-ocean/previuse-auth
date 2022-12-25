@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, InputAdornment, TextField, Tooltip } from '@material-ui/core';
 import { Visibility, VisibilityOff, WarningRounded } from '@material-ui/icons';
+import querystring from 'query-string';
 
 import {
   StyledContainer,
@@ -29,9 +30,9 @@ export interface ResetPasswordPageProps {
 const ResetPasswordPage: React.FC<RouteChildrenProps & ResetPasswordPageProps> = (props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const paths = window.location.pathname.split('/').filter(t => t);
-  const uid = paths[paths.length - 2];
-  const token = paths[paths.length - 1];
+  const search = querystring.parse(window.location.search);
+  const uid = search.uid as string;
+  const token = search.token as string;
 
   const services: IServices | undefined = useContext(ServicesContext);
 

@@ -57,11 +57,13 @@ const HomePage: React.FC<RouteChildrenProps & HomePageProps> = (props) => {
   if (!services) return null;
 
   useEffect(() => {
+    const search = querystring.parse(window.location.search);
+
     if (window.location.pathname.split('/').includes('activate')) {
       props.history.push(ROUTES.activateUser);
     }
 
-    if (window.location.pathname.split('/').includes('password')) {
+    if (search.route === 'password') {
       props.history.push(ROUTES.resetPassword);
     }
 
